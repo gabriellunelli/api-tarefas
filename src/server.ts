@@ -15,6 +15,7 @@ type ReqID = Request<{ id: string }>;
 type ReqAtualizar = Request<{ id: string }, {}, AtualizarTarefa>;
 type ReqCriar = Request<{}, {}, NovaTarefa>;
 type ReqFiltro = Request<{}, {}, {}, { concluida?: string }>;
+type ReqSubstituir = Request<{ id: string }, {}, SubstituirTarefa>;
 
 
 const app = express();
@@ -78,7 +79,7 @@ app.delete('/tarefas/:id', (req: ReqID, res: Response) => {
 
 // EXERCICIO
 // PUT /tarefas/:id
-app.put('/tarefas/:id', (req: ReqAtualizar, res: Response) => {
+app.put('/tarefas/:id', (req: ReqSubstituir, res: Response) => {
     const id = Number(req.params.id); // Converte o parâmetro de rota "id" para número
     const i = tarefas.findIndex((tarefa) => tarefa.id === id); // Procura o índice da tarefa com o ID correspondente
     const atual = tarefas[i];
