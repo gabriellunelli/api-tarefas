@@ -85,8 +85,11 @@ app.put('/tarefas/:id', (req: ReqAtualizar, res: Response) => {
     if (!atual) {
         return res.status(404).json(NAO_ENCONTRADO); // Retorna 404 se a tarefa não for encontrada
     }
+    if (!req.body.titulo || req.body.concluida === undefined) {
+        return res.status(400).json({ erro: 'Dados incompletos' }); // Retorna 400 se os dados não forem fornecidos
+    }
     tarefas[i] = { ...atual, ...req.body, id }; // Substitui a tarefa com os novos dados fornecidos no corpo da requisição
-    res.json(tarefas[i]);
+    res.status(200).json(tarefas[i]);
 })
 
 app.listen(PORT, () => {
